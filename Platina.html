@@ -1,0 +1,1862 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platina - Premium Cloud Kitchen</title>
+    <link rel="icon" href="data:image/svg+xml,
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'>
+        <defs>
+            <linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'>
+                <stop offset='0%' style='stop-color:%23E8C170'/>
+                <stop offset='100%' style='stop-color:%23D4A574'/>
+            </linearGradient>
+        </defs>
+        <circle cx='32' cy='32' r='30' fill='%231a1a2e' stroke='url(%23g)' stroke-width='3'/>
+        <path d='M20 42 Q32 14 44 42' fill='none' stroke='url(%23g)' stroke-width='3.5' stroke-linecap='round'/>
+        <ellipse cx='32' cy='44' rx='14' ry='5' fill='url(%23g)' opacity='0.6'/>
+        <circle cx='28' cy='30' r='3' fill='%23E8C170' opacity='0.8'/>
+        <path d='M20 42 Q26 30 32 28 Q38 30 44 42' fill='%23E8C170' opacity='0.25'/>
+        <text x='32' y='56' text-anchor='middle' fill='%23E8C170' font-size='7' font-weight='bold' font-family='serif'>PLATINA</text>
+    </svg>" type="image/svg+xml">
+
+    <style>
+        :root {
+            --bg: #FFFBF5;
+            --bg2: #FFF8ED;
+            --surface: #FFFFFF;
+            --surface2: #FFF3E4;
+            --text: #2D1B0E;
+            --text2: #5C3D2E;
+            --text3: #8B6F5E;
+            --primary: #C8953B;
+            --primary2: #D4A574;
+            --primary3: #E8C170;
+            --accent: #B87333;
+            --accent2: #F5D6A8;
+            --border: #E8D5C4;
+            --shadow: 0 4px 24px rgba(139, 90, 43, 0.10);
+            --shadow-lg: 0 12px 40px rgba(139, 90, 43, 0.14);
+            --card-bg: #FFFFFF;
+            --nav-bg: rgba(255, 251, 245, 0.92);
+            --hero-overlay: rgba(255, 248, 237, 0.3);
+            --input-bg: #FFFBF5;
+            --badge: #B87333;
+            --badge-text: #FFF;
+            --cart-bg: #FFFFFF;
+            --modal-overlay: rgba(30, 15, 5, 0.55);
+            --star: #E8C170;
+            --success: #5D9B4C;
+            --danger: #C94C4C;
+            --info: #4A90B8;
+            --gradient-1: linear-gradient(135deg, #C8953B, #E8C170);
+            --gradient-2: linear-gradient(135deg, #B87333, #D4A574);
+            --gradient-hero: linear-gradient(160deg, #FFFBF5 0%, #FFF3E4 40%, #FDE8D0 100%);
+            --card-radius: 18px;
+            --btn-radius: 28px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg: #1A1512;
+            --bg2: #211C17;
+            --surface: #25201A;
+            --surface2: #2C2620;
+            --text: #F0E6D8;
+            --text2: #D4C5B0;
+            --text3: #A89880;
+            --primary: #E8C170;
+            --primary2: #D4A574;
+            --primary3: #C8953B;
+            --accent: #F5D6A8;
+            --accent2: #5C3D2E;
+            --border: #3D3328;
+            --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.45);
+            --card-bg: #25201A;
+            --nav-bg: rgba(26, 21, 18, 0.94);
+            --hero-overlay: rgba(26, 21, 18, 0.5);
+            --input-bg: #1F1A15;
+            --badge: #E8C170;
+            --badge-text: #1A1512;
+            --cart-bg: #25201A;
+            --modal-overlay: rgba(0, 0, 0, 0.7);
+            --star: #E8C170;
+            --gradient-hero: linear-gradient(160deg, #1A1512 0%, #211C17 40%, #2C1F14 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Inter', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            transition: background var(--transition), color var(--transition);
+            overflow-x: hidden;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ─── SCROLLBAR ─── */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg2);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary2);
+            border-radius: 10px;
+        }
+
+        /* ─── NAVIGATION ─── */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 68px;
+            transition: all var(--transition);
+            box-shadow: 0 1px 8px rgba(0, 0, 0, 0.04);
+        }
+        .navbar.scrolled {
+            box-shadow: var(--shadow);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-size: 1.6rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: var(--text);
+            cursor: pointer;
+            transition: transform var(--transition);
+        }
+        .nav-logo:hover {
+            transform: scale(1.03);
+        }
+        .nav-logo .logo-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(200, 149, 59, 0.4);
+            animation: logoPulse 3s ease-in-out infinite;
+        }
+        @keyframes logoPulse {
+            0%,
+            100% {
+                box-shadow: 0 4px 14px rgba(200, 149, 59, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 24px rgba(200, 149, 59, 0.7);
+            }
+        }
+        .nav-logo span {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0.3rem;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text2);
+            padding: 0.55rem 1.1rem;
+            border-radius: 24px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all var(--transition);
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--surface2);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn {
+            padding: 0.6rem 1.4rem;
+            border-radius: var(--btn-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-primary {
+            background: var(--gradient-1);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(200, 149, 59, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(200, 149, 59, 0.5);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+        .btn-sm {
+            padding: 0.4rem 1rem;
+            font-size: 0.8rem;
+            border-radius: 20px;
+        }
+        .btn-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--surface2);
+            border: 1px solid var(--border);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all var(--transition);
+            position: relative;
+            color: var(--text);
+        }
+        .btn-icon:hover {
+            background: var(--primary3);
+            color: #fff;
+            border-color: var(--primary3);
+        }
+        .cart-badge {
+            position: absolute;
+            top: -4px;
+            right: -4px;
+            background: var(--badge);
+            color: var(--badge-text);
+            font-size: 0.7rem;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* ─── THEME TOGGLE ─── */
+        .theme-toggle {
+            width: 48px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 13px;
+            cursor: pointer;
+            position: relative;
+            transition: all var(--transition);
+            border: 2px solid var(--border);
+        }
+        .theme-toggle .toggle-ball {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            position: absolute;
+            top: 1px;
+            left: 2px;
+            transition: all var(--transition);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+        [data-theme="dark"] .theme-toggle .toggle-ball {
+            left: 22px;
+            background: #F5D6A8;
+        }
+        [data-theme="dark"] .theme-toggle {
+            background: #3D3328;
+            border-color: #5C3D2E;
+        }
+
+        /* ─── HERO / LANDING ─── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 2rem 60px;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+            text-align: left;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            background: var(--accent2);
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .hero h1 {
+            font-size: 3.8rem;
+            font-weight: 900;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+        .hero h1 .highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text2);
+            margin-bottom: 2rem;
+            max-width: 450px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* 3D HERO VISUAL */
+        .hero-3d {
+            position: relative;
+            width: 500px;
+            height: 500px;
+            perspective: 900px;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+        .rotating-platform {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            animation: floatPlatform 6s ease-in-out infinite;
+        }
+        @keyframes floatPlatform {
+            0%,
+            100% {
+                transform: rotateY(0deg) translateY(0px);
+            }
+            25% {
+                transform: rotateY(8deg) translateY(-16px);
+            }
+            50% {
+                transform: rotateY(0deg) translateY(-6px);
+            }
+            75% {
+                transform: rotateY(-8deg) translateY(-16px);
+            }
+        }
+        .plate-3d {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotateX(60deg);
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #fefefe 0%, #e8d5c4 40%, #d4a574 100%);
+            box-shadow: 0 30px 60px rgba(139, 90, 43, 0.3), inset 0 -8px 20px rgba(0, 0, 0, 0.1);
+            border: 6px solid #c8953b;
+            transform-style: preserve-3d;
+        }
+        .plate-3d::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border-radius: 50%;
+            border: 3px dashed rgba(200, 149, 59, 0.5);
+            animation: spinBorder 20s linear infinite;
+        }
+        @keyframes spinBorder {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .floating-food {
+            position: absolute;
+            font-size: 3.5rem;
+            animation: floatFood 4s ease-in-out infinite;
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+            pointer-events: none;
+        }
+        .floating-food:nth-child(1) {
+            top: 8%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+        .floating-food:nth-child(2) {
+            top: 5%;
+            right: 18%;
+            animation-delay: 0.7s;
+        }
+        .floating-food:nth-child(3) {
+            bottom: 10%;
+            left: 12%;
+            animation-delay: 1.4s;
+        }
+        .floating-food:nth-child(4) {
+            bottom: 8%;
+            right: 14%;
+            animation-delay: 2.1s;
+        }
+        .floating-food:nth-child(5) {
+            top: 45%;
+            left: -8%;
+            animation-delay: 2.8s;
+        }
+        .floating-food:nth-child(6) {
+            top: 40%;
+            right: -10%;
+            animation-delay: 3.5s;
+        }
+        @keyframes floatFood {
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            30% {
+                transform: translateY(-28px) rotate(8deg) scale(1.1);
+            }
+            60% {
+                transform: translateY(-10px) rotate(-5deg) scale(0.95);
+            }
+        }
+
+        /* ─── SECTIONS ─── */
+        .section {
+            padding: 80px 2rem;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-header h2 {
+            font-size: 2.6rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+        .section-header p {
+            color: var(--text3);
+            font-size: 1.1rem;
+            margin-top: 0.5rem;
+        }
+        .section-header .line {
+            width: 50px;
+            height: 4px;
+            border-radius: 2px;
+            background: var(--gradient-1);
+            margin: 12px auto 0;
+        }
+
+        /* ─── CATEGORY FILTERS ─── */
+        .category-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            justify-content: center;
+            margin-bottom: 2.5rem;
+        }
+        .category-btn {
+            padding: 0.55rem 1.3rem;
+            border-radius: 24px;
+            border: 2px solid var(--border);
+            background: var(--surface);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            color: var(--text2);
+            white-space: nowrap;
+        }
+        .category-btn:hover,
+        .category-btn.active {
+            background: var(--gradient-1);
+            color: #fff;
+            border-color: transparent;
+            box-shadow: 0 4px 16px rgba(200, 149, 59, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* ─── FOOD CARDS ─── */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.8rem;
+        }
+        .food-card {
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all var(--transition);
+            cursor: pointer;
+            border: 1px solid var(--border);
+            position: relative;
+            transform-style: preserve-3d;
+            perspective: 600px;
+        }
+        .food-card:hover {
+            transform: translateY(-8px) rotateX(2deg) rotateY(-2deg);
+            box-shadow: var(--shadow-lg);
+        }
+        .food-card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: transform 0.5s;
+        }
+        .food-card:hover .food-card-img {
+            transform: scale(1.06);
+        }
+        .food-card-img .food-emoji-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            background: rgba(0, 0, 0, 0.15);
+            transition: all var(--transition);
+        }
+        .food-card:hover .food-emoji-overlay {
+            background: rgba(0, 0, 0, 0.05);
+            font-size: 6rem;
+        }
+        .food-card-body {
+            padding: 1.2rem;
+        }
+        .food-card-body h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: var(--text);
+        }
+        .food-card-body .food-desc {
+            font-size: 0.85rem;
+            color: var(--text3);
+            margin-bottom: 0.8rem;
+        }
+        .food-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .food-price {
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+        .food-rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.85rem;
+            color: var(--star);
+        }
+        .add-to-cart-btn {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            font-size: 1.2rem;
+            transition: all var(--transition);
+            box-shadow: 0 3px 12px rgba(200, 149, 59, 0.3);
+        }
+        .add-to-cart-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 6px 20px rgba(200, 149, 59, 0.5);
+        }
+        .veg-badge {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: 2px solid #4CAF50;
+            position: relative;
+            margin-right: 4px;
+        }
+        .veg-badge::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #4CAF50;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+        .non-veg-badge {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 3px;
+            border: 2px solid #C94C4C;
+            position: relative;
+            margin-right: 4px;
+        }
+        .non-veg-badge::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #C94C4C;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+        }
+
+        /* ─── CART SIDEBAR ─── */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--modal-overlay);
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition);
+        }
+        .cart-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -440px;
+            width: 420px;
+            max-width: 90vw;
+            height: 100vh;
+            background: var(--cart-bg);
+            z-index: 2001;
+            box-shadow: -8px 0 30px rgba(0, 0, 0, 0.2);
+            transition: right var(--transition);
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border);
+        }
+        .cart-sidebar.open {
+            right: 0;
+        }
+        .cart-header {
+            padding: 1.2rem 1.5rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-header h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .cart-close {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: var(--surface2);
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all var(--transition);
+            color: var(--text);
+        }
+        .cart-close:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            background: var(--surface);
+            border-radius: 14px;
+            margin-bottom: 0.8rem;
+            align-items: center;
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+        }
+        .cart-item:hover {
+            box-shadow: var(--shadow);
+        }
+        .cart-item-emoji {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        .cart-item-info {
+            flex: 1;
+        }
+        .cart-item-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+        .cart-item-info .price {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        .qty-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .qty-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: var(--surface2);
+            cursor: pointer;
+            font-weight: bold;
+            transition: all var(--transition);
+            color: var(--text);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .qty-btn:hover {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+        }
+        .qty-num {
+            font-weight: 700;
+            min-width: 20px;
+            text-align: center;
+        }
+        .cart-total {
+            padding: 1.2rem 1.5rem;
+            border-top: 2px solid var(--border);
+            font-weight: 800;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .cart-footer {
+            padding: 0 1.5rem 1.5rem;
+        }
+        .cart-footer .btn {
+            width: 100%;
+            justify-content: center;
+            padding: 0.9rem;
+            font-size: 1rem;
+        }
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text3);
+            font-size: 1.1rem;
+        }
+        .empty-cart .empty-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        /* ─── ORDER TRACKING ─── */
+        .tracking-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        .tracking-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--border);
+            z-index: 0;
+            transform: translateY(-50%);
+            border-radius: 2px;
+        }
+        .tracking-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 3px;
+            background: var(--gradient-1);
+            z-index: 1;
+            transform: translateY(-50%);
+            border-radius: 2px;
+            transition: width 0.8s ease;
+        }
+        .track-step {
+            z-index: 2;
+            text-align: center;
+            position: relative;
+        }
+        .track-step-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 3px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            margin: 0 auto 0.5rem;
+            transition: all var(--transition);
+            font-weight: 700;
+            color: var(--text3);
+        }
+        .track-step.active .track-step-circle {
+            border-color: var(--primary);
+            background: var(--gradient-1);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(200, 149, 59, 0.4);
+            animation: stepPulse 2s ease-in-out infinite;
+        }
+        @keyframes stepPulse {
+            0%,
+            100% {
+                box-shadow: 0 4px 16px rgba(200, 149, 59, 0.4);
+            }
+            50% {
+                box-shadow: 0 4px 28px rgba(200, 149, 59, 0.7);
+            }
+        }
+        .track-step span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text3);
+        }
+        .track-step.active span {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* ─── CHEF SECTION ─── */
+        .chef-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.8rem;
+        }
+        .chef-card {
+            background: var(--card-bg);
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all var(--transition);
+            text-align: center;
+            padding: 2rem 1.5rem;
+        }
+        .chef-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+        }
+        .chef-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(200, 149, 59, 0.35);
+        }
+        .chef-card h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+        .chef-card .chef-expertise {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+        .chef-stars {
+            color: var(--star);
+            font-size: 1rem;
+        }
+        .chef-location {
+            color: var(--text3);
+            font-size: 0.85rem;
+        }
+        .chef-media-upload {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .chef-media-upload label {
+            padding: 0.4rem 0.9rem;
+            border-radius: 18px;
+            background: var(--surface2);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px dashed var(--border);
+            transition: all var(--transition);
+            color: var(--text2);
+        }
+        .chef-media-upload label:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        .chef-media-upload input {
+            display: none;
+        }
+
+        /* ─── MODALS ─── */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--modal-overlay);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--transition);
+        }
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+        .modal {
+            background: var(--surface);
+            border-radius: 22px;
+            padding: 2.5rem;
+            width: 420px;
+            max-width: 92vw;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            transform: translateY(30px);
+            transition: transform var(--transition);
+            border: 1px solid var(--border);
+        }
+        .modal-overlay.open .modal {
+            transform: translateY(0);
+        }
+        .modal h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 0.3rem;
+        }
+        .modal .subtitle {
+            text-align: center;
+            color: var(--text3);
+            font-size: 0.9rem;
+            margin-bottom: 1.8rem;
+        }
+        .modal .form-group {
+            margin-bottom: 1.1rem;
+        }
+        .modal label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+            font-size: 0.85rem;
+            color: var(--text2);
+        }
+        .modal input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: var(--input-bg);
+            font-size: 0.95rem;
+            transition: all var(--transition);
+            color: var(--text);
+            font-family: inherit;
+        }
+        .modal input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(200, 149, 59, 0.1);
+        }
+        .modal .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 0.5rem;
+            padding: 0.85rem;
+            font-size: 1rem;
+        }
+        .modal-close {
+            position: absolute;
+            top: 14px;
+            right: 18px;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: none;
+            background: var(--surface2);
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all var(--transition);
+            color: var(--text);
+        }
+        .modal-close:hover {
+            background: var(--danger);
+            color: #fff;
+        }
+        .modal .switch-text {
+            text-align: center;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--text3);
+        }
+        .modal .switch-text a {
+            color: var(--primary);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: underline;
+        }
+
+        /* ─── TOAST ─── */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 5000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .toast {
+            padding: 0.9rem 1.4rem;
+            border-radius: 12px;
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.9rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+            animation: slideInToast 0.4s ease-out, fadeOutToast 0.4s 2.6s ease-out forwards;
+            max-width: 350px;
+        }
+        .toast.success {
+            background: #4CAF50;
+        }
+        .toast.error {
+            background: #C94C4C;
+        }
+        .toast.info {
+            background: #4A90B8;
+        }
+        @keyframes slideInToast {
+            from {
+                transform: translateX(120%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes fadeOutToast {
+            to {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+        }
+
+        /* ─── PAYMENT SIMULATION ─── */
+        .payment-modal-content {
+            text-align: center;
+        }
+        .payment-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+        .payment-option {
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-weight: 600;
+            background: var(--surface2);
+            color: var(--text);
+            font-size: 0.9rem;
+        }
+        .payment-option:hover,
+        .payment-option.selected {
+            border-color: var(--primary);
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 16px rgba(200, 149, 59, 0.3);
+        }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            background: var(--surface2);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text3);
+            font-size: 0.9rem;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 90px 1.5rem 40px;
+            }
+            .hero-content {
+                text-align: center;
+            }
+            .hero-content p {
+                max-width: 100%;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-3d {
+                width: 340px;
+                height: 340px;
+                margin-top: 1rem;
+            }
+            .plate-3d {
+                width: 200px;
+                height: 200px;
+            }
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            .floating-food {
+                font-size: 2.5rem;
+            }
+            .nav-links {
+                display: none;
+            }
+            .navbar {
+                padding: 0 1rem;
+            }
+        }
+        @media (max-width: 600px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero-3d {
+                width: 260px;
+                height: 260px;
+            }
+            .plate-3d {
+                width: 150px;
+                height: 150px;
+            }
+            .floating-food {
+                font-size: 1.8rem;
+            }
+            .food-grid {
+                grid-template-columns: 1fr;
+            }
+            .chef-grid {
+                grid-template-columns: 1fr;
+            }
+            .tracking-steps {
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+            }
+            .tracking-steps::before,
+            .tracking-progress {
+                display: none;
+            }
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ═══════════════ NAVIGATION BAR ═══════════════ -->
+    <nav class="navbar" id="navbar">
+        <a class="nav-logo" onclick="scrollToSection('hero')">
+            <div class="logo-icon">🍽️</div>
+            <span>Platina</span>
+        </a>
+        <ul class="nav-links">
+            <li><a onclick="scrollToSection('hero')" class="active">Home</a></li>
+            <li><a onclick="scrollToSection('menu-section')">Menu</a></li>
+            <li><a onclick="scrollToSection('tracking-section')">Track Order</a></li>
+            <li><a onclick="scrollToSection('chef-section')">Chefs</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="theme-toggle" id="themeToggle" title="Toggle Theme" onclick="toggleTheme()">
+                <div class="toggle-ball"></div>
+            </div>
+            <button class="btn-icon" id="cartBtn" title="Cart" onclick="toggleCart()">
+                🛒<span class="cart-badge" id="cartBadge">0</span>
+            </button>
+            <button class="btn btn-primary" onclick="openModal('login-modal')">Login</button>
+        </div>
+    </nav>
+
+    <!-- ═══════════════ CART OVERLAY & SIDEBAR ═══════════════ -->
+    <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>🛒 Your Cart</h3>
+            <button class="cart-close" onclick="toggleCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <div class="empty-cart">
+                <div class="empty-icon">🛍️</div>
+                <p>Your cart is empty</p>
+                <p style="font-size:0.8rem;">Add delicious items from the menu!</p>
+            </div>
+        </div>
+        <div class="cart-total" id="cartTotal" style="display:none;">
+            <span>Total</span>
+            <span id="cartTotalAmount">₹0</span>
+        </div>
+        <div class="cart-footer">
+            <button class="btn btn-primary" onclick="checkout()" id="checkoutBtn" style="display:none;">Proceed to Payment 💳</button>
+        </div>
+    </div>
+
+    <!-- ═══════════════ LOGIN MODAL ═══════════════ -->
+    <div class="modal-overlay" id="login-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('login-modal')">✕</button>
+            <h2>Welcome Back 👋</h2>
+            <p class="subtitle">Log in to your Platina account</p>
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" required></div>
+                <div class="form-group"><label>Password</label><input type="password" placeholder="••••••••" required></div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+            </form>
+            <p class="switch-text">Don't have an account? <a onclick="switchModal('login-modal','register-modal')">Register here</a></p>
+        </div>
+    </div>
+
+    <!-- ═══════════════ REGISTER MODAL ═══════════════ -->
+    <div class="modal-overlay" id="register-modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal('register-modal')">✕</button>
+            <h2>Join Platina 🍽️</h2>
+            <p class="subtitle">Create your account & start ordering</p>
+            <form onsubmit="handleRegister(event)">
+                <div class="form-group"><label>Full Name</label><input type="text" placeholder="John Doe" required></div>
+                <div class="form-group"><label>Email</label><input type="email" placeholder="you@example.com" required></div>
+                <div class="form-group"><label>Password</label><input type="password" placeholder="Min. 8 characters" required minlength="8"></div>
+                <button type="submit" class="btn btn-primary">Create Account</button>
+            </form>
+            <p class="switch-text">Already have an account? <a onclick="switchModal('register-modal','login-modal')">Login here</a></p>
+        </div>
+    </div>
+
+    <!-- ═══════════════ PAYMENT MODAL ═══════════════ -->
+    <div class="modal-overlay" id="payment-modal">
+        <div class="modal payment-modal-content">
+            <button class="modal-close" onclick="closeModal('payment-modal')">✕</button>
+            <h2>💳 Payment</h2>
+            <p class="subtitle">Total: <strong id="paymentTotal">₹0</strong></p>
+            <div class="payment-options">
+                <div class="payment-option selected" onclick="selectPayment(this)">💳 Card</div>
+                <div class="payment-option" onclick="selectPayment(this)">📱 UPI</div>
+                <div class="payment-option" onclick="selectPayment(this)">💵 Cash</div>
+            </div>
+            <button class="btn btn-primary" onclick="processPayment()">Pay Now & Place Order ✅</button>
+        </div>
+    </div>
+
+    <!-- ═══════════════ TOAST CONTAINER ═══════════════ -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- ═══════════════ HERO / LANDING SECTION ═══════════════ -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <span class="hero-badge">⭐ Premium Cloud Kitchen</span>
+            <h1>Discover <span class="highlight">Gourmet</span> Flavors, Delivered</h1>
+            <p>Handcrafted meals by expert chefs, delivered fresh to your doorstep. Experience the art of fine dining at home.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="scrollToSection('menu-section')">Explore Menu 🍜</button>
+                <button class="btn btn-outline" onclick="scrollToSection('chef-section')">Meet Our Chefs 👨‍🍳</button>
+            </div>
+        </div>
+        <div class="hero-3d">
+            <div class="rotating-platform">
+                <div class="plate-3d"></div>
+                <div class="floating-food">🍕</div>
+                <div class="floating-food">🍣</div>
+                <div class="floating-food">🥗</div>
+                <div class="floating-food">🍰</div>
+                <div class="floating-food">🥩</div>
+                <div class="floating-food">🍜</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════ MENU SECTION ═══════════════ -->
+    <section class="section" id="menu-section">
+        <div class="section-header">
+            <h2>Our Gourmet Menu</h2>
+            <p>Filter by category & find your perfect meal</p>
+            <div class="line"></div>
+        </div>
+        <div class="category-filters" id="categoryFilters">
+            <button class="category-btn active" onclick="filterFood('all', this)">🍽️ All</button>
+            <button class="category-btn" onclick="filterFood('italian', this)">🍝 Italian</button>
+            <button class="category-btn" onclick="filterFood('asian', this)">🍜 Asian</button>
+            <button class="category-btn" onclick="filterFood('indian', this)">🍛 Indian</button>
+            <button class="category-btn" onclick="filterFood('dessert', this)">🍰 Desserts</button>
+            <button class="category-btn" onclick="filterFood('beverage', this)">🥤 Beverages</button>
+        </div>
+        <div class="food-grid" id="foodGrid"></div>
+    </section>
+
+    <!-- ═══════════════ ORDER TRACKING SECTION ═══════════════ -->
+    <section class="section" id="tracking-section">
+        <div class="section-header">
+            <h2>Track Your Order</h2>
+            <p>Real-time updates on your delivery</p>
+            <div class="line"></div>
+        </div>
+        <div style="text-align:center;margin-bottom:1rem;">
+            <button class="btn btn-outline btn-sm" onclick="simulateTracking()">▶ Simulate Tracking</button>
+            <button class="btn btn-outline btn-sm" onclick="resetTracking()">↺ Reset</button>
+        </div>
+        <div class="tracking-steps" id="trackingSteps">
+            <div class="tracking-progress" id="trackingProgress" style="width:0%;"></div>
+            <div class="track-step" data-step="0">
+                <div class="track-step-circle">📋</div><span>Order Placed</span>
+            </div>
+            <div class="track-step" data-step="1">
+                <div class="track-step-circle">👨‍🍳</div><span>Preparing</span>
+            </div>
+            <div class="track-step" data-step="2">
+                <div class="track-step-circle">📦</div><span>Packed</span>
+            </div>
+            <div class="track-step" data-step="3">
+                <div class="track-step-circle">🛵</div><span>On the Way</span>
+            </div>
+            <div class="track-step" data-step="4">
+                <div class="track-step-circle">✅</div><span>Delivered</span>
+            </div>
+        </div>
+        <p style="text-align:center;color:var(--text3);margin-top:1rem;" id="trackingStatus">No active order. Place an order to start tracking!</p>
+    </section>
+
+    <!-- ═══════════════ CHEF SECTION ═══════════════ -->
+    <section class="section" id="chef-section">
+        <div class="section-header">
+            <h2>Meet Our Master Chefs</h2>
+            <p>Passionate culinary artists behind every dish</p>
+            <div class="line"></div>
+        </div>
+        <div class="chef-grid" id="chefGrid"></div>
+    </section>
+
+    <!-- ═══════════════ FOOTER ═══════════════ -->
+    <footer class="footer">
+        <p>© 2026 <strong>Platina</strong> — Premium Cloud Kitchen. Crafted with ❤️ for food lovers.</p>
+    </footer>
+
+    <script>
+        // ─── DATA ───────────────────────────────
+        const foodItems = [
+            { id: 1, name: 'Margherita Pizza', category: 'italian', price: 349, rating: 4.7, emoji: '🍕',
+                desc: 'Classic Italian with fresh mozzarella & basil', veg: true },
+            { id: 2, name: 'Chicken Alfredo Pasta', category: 'italian', price: 429, rating: 4.5, emoji: '🍝',
+                desc: 'Creamy white sauce with grilled chicken', veg: false },
+            { id: 3, name: 'Sushi Platter', category: 'asian', price: 599, rating: 4.8, emoji: '🍣',
+                desc: '8-piece assorted fresh sushi with wasabi', veg: false },
+            { id: 4, name: 'Butter Chicken', category: 'indian', price: 389, rating: 4.9, emoji: '🍛',
+                desc: 'Rich creamy tomato-based curry with tender chicken', veg: false },
+            { id: 5, name: 'Pad Thai Noodles', category: 'asian', price: 319, rating: 4.4, emoji: '🍜',
+                desc: 'Stir-fried rice noodles with peanuts & lime', veg: true },
+            { id: 6, name: 'Tiramisu', category: 'dessert', price: 279, rating: 4.6, emoji: '🍰',
+                desc: 'Layered coffee-soaked Italian dessert', veg: true },
+            { id: 7, name: 'Paneer Tikka', category: 'indian', price: 299, rating: 4.7, emoji: '🥘',
+                desc: 'Char-grilled marinated cottage cheese', veg: true },
+            { id: 8, name: 'Mango Smoothie', category: 'beverage', price: 189, rating: 4.3, emoji: '🥤',
+                desc: 'Fresh mango blended with yogurt & honey', veg: true },
+            { id: 9, name: 'Chocolate Lava Cake', category: 'dessert', price: 249, rating: 4.8, emoji: '🍫',
+                desc: 'Warm molten chocolate center with vanilla ice cream', veg: true },
+            { id: 10, name: 'Biryani (Chicken)', category: 'indian', price: 449, rating: 4.9, emoji: '🍚',
+                desc: 'Aromatic basmati rice with spiced chicken', veg: false },
+            { id: 11, name: 'Caesar Salad', category: 'italian', price: 259, rating: 4.2, emoji: '🥗',
+                desc: 'Crisp romaine with parmesan & croutons', veg: true },
+            { id: 12, name: 'Iced Latte', category: 'beverage', price: 169, rating: 4.4, emoji: '☕',
+                desc: 'Espresso with cold milk over ice', veg: true },
+        ];
+
+        const chefs = [
+            { id: 1, name: 'Chef Marco', expertise: 'Italian Cuisine', rating: 4.9, location: 'Mumbai', emoji: '👨‍🍳',
+                dishes: 120 },
+            { id: 2, name: 'Chef Yuki', expertise: 'Japanese & Sushi', rating: 4.8, location: 'Delhi', emoji: '🍣',
+                dishes: 95 },
+            { id: 3, name: 'Chef Priya', expertise: 'Indian Curries', rating: 4.9, location: 'Bangalore', emoji: '👩‍🍳',
+                dishes: 150 },
+            { id: 4, name: 'Chef Pierre', expertise: 'French Pastries', rating: 4.7, location: 'Mumbai', emoji: '🥐',
+                dishes: 80 },
+        ];
+
+        // ─── STATE ──────────────────────────────
+        let cart = [];
+        let currentFilter = 'all';
+        let trackingStep = -1;
+        let isLoggedIn = false;
+        let trackingInterval = null;
+
+        // ─── INIT ───────────────────────────────
+        function init() {
+            renderFoodGrid(foodItems);
+            renderChefGrid();
+            updateCartUI();
+            // Set initial theme based on system preference
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        }
+
+        // ─── THEME TOGGLE ──────────────────────
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute('data-theme');
+            const next = current === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', next);
+            showToast(`🌓 ${next === 'dark' ? 'Dark' : 'Light'} mode activated`, 'info');
+        }
+
+        // ─── SCROLL TO SECTION ─────────────────
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            // Update active nav link
+            document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+            const links = document.querySelectorAll('.nav-links a');
+            links.forEach(a => {
+                if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(id)) {
+                    a.classList.add('active');
+                }
+            });
+        }
+
+        // ─── MODALS ─────────────────────────────
+        function openModal(id) {
+            document.getElementById(id).classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function switchModal(fromId, toId) {
+            closeModal(fromId);
+            setTimeout(() => openModal(toId), 300);
+        }
+
+        // Close modals on overlay click
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ─── AUTH ───────────────────────────────
+        function handleLogin(e) {
+            e.preventDefault();
+            isLoggedIn = true;
+            closeModal('login-modal');
+            showToast('✅ Welcome back! You are now logged in.', 'success');
+            updateCartUI();
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            isLoggedIn = true;
+            closeModal('register-modal');
+            showToast('🎉 Account created successfully! Welcome to Platina.', 'success');
+            updateCartUI();
+        }
+
+        // ─── FOOD GRID ──────────────────────────
+        function renderFoodGrid(items) {
+            const grid = document.getElementById('foodGrid');
+            if (items.length === 0) {
+                grid.innerHTML =
+                    '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--text3);"><p style="font-size:3rem;">🍽️</p><p>No items found in this category.</p></div>';
+                return;
+            }
+            grid.innerHTML = items.map(f => `
+            <div class="food-card" data-category="${f.category}">
+              <div class="food-card-img" style="background: linear-gradient(135deg, ${getGradientColors(f.category)});">
+                <div class="food-emoji-overlay">${f.emoji}</div>
+              </div>
+              <div class="food-card-body">
+                <h3>${f.veg ? '<span class="veg-badge"></span>' : '<span class="non-veg-badge"></span>'}${f.name}</h3>
+                <p class="food-desc">${f.desc}</p>
+                <div class="food-card-footer">
+                  <span class="food-price">₹${f.price}</span>
+                  <span class="food-rating">⭐ ${f.rating}</span>
+                  <button class="add-to-cart-btn" onclick="addToCart(${f.id})" title="Add to cart">+</button>
+                </div>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        function getGradientColors(cat) {
+            const map = {
+                'italian': '#F5D6A8, #E8C170',
+                'asian': '#D4A574, #F0C8A0',
+                'indian': '#E8B870, #D4954B',
+                'dessert': '#F0D0B0, #E8C170',
+                'beverage': '#C8D8E8, #A0C0D8'
+            };
+            return map[cat] || '#E8D5C4, #D4A574';
+        }
+
+        function filterFood(category, btn) {
+            currentFilter = category;
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filtered = category === 'all' ? foodItems : foodItems.filter(f => f.category === category);
+            renderFoodGrid(filtered);
+            // Animate cards
+            document.querySelectorAll('.food-card').forEach((card, i) => {
+                card.style.animation = 'none';
+                card.offsetHeight;
+                card.style.animation = `fadeInUp 0.4s ${i * 0.05}s ease-out both`;
+            });
+        }
+
+        // ─── CART ───────────────────────────────
+        function addToCart(foodId) {
+            const food = foodItems.find(f => f.id === foodId);
+            const existing = cart.find(c => c.id === foodId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...food, qty: 1 });
+            }
+            updateCartUI();
+            showToast(`✅ ${food.name} added to cart!`, 'success');
+            // Animate cart badge
+            const badge = document.getElementById('cartBadge');
+            badge.style.transform = 'scale(1.5)';
+            setTimeout(() => badge.style.transform = 'scale(1)', 200);
+        }
+
+        function updateCartQty(foodId, delta) {
+            const item = cart.find(c => c.id === foodId);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                cart = cart.filter(c => c.id !== foodId);
+            }
+            updateCartUI();
+        }
+
+        function removeFromCart(foodId) {
+            const item = cart.find(c => c.id === foodId);
+            cart = cart.filter(c => c.id !== foodId);
+            updateCartUI();
+            if (item) showToast(`🗑️ ${item.name} removed from cart.`, 'error');
+        }
+
+        function updateCartUI() {
+            const cartItems = document.getElementById('cartItems');
+            const cartBadge = document.getElementById('cartBadge');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartTotalAmount = document.getElementById('cartTotalAmount');
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const totalItems = cart.reduce((sum, c) => sum + c.qty, 0);
+            const totalPrice = cart.reduce((sum, c) => sum + c.price * c.qty, 0);
+
+            cartBadge.textContent = totalItems;
+            cartBadge.style.display = totalItems > 0 ? 'flex' : 'none';
+
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+              <div class="empty-cart">
+                <div class="empty-icon">🛍️</div>
+                <p>Your cart is empty</p>
+                <p style="font-size:0.8rem;">Add delicious items from the menu!</p>
+              </div>`;
+                cartTotal.style.display = 'none';
+                checkoutBtn.style.display = 'none';
+            } else {
+                cartItems.innerHTML = cart.map(c => `
+              <div class="cart-item">
+                <div class="cart-item-emoji">${c.emoji}</div>
+                <div class="cart-item-info">
+                  <h4>${c.name}</h4>
+                  <span class="price">₹${c.price * c.qty}</span>
+                </div>
+                <div class="qty-control">
+                  <button class="qty-btn" onclick="updateCartQty(${c.id}, -1)">−</button>
+                  <span class="qty-num">${c.qty}</span>
+                  <button class="qty-btn" onclick="updateCartQty(${c.id}, 1)">+</button>
+                </div>
+                <button class="qty-btn" style="background:#fff0f0;border-color:#fcc;color:#C94C4C;" onclick="removeFromCart(${c.id})">🗑️</button>
+              </div>
+            `).join('');
+                cartTotal.style.display = 'flex';
+                cartTotalAmount.textContent = '₹' + totalPrice;
+                checkoutBtn.style.display = 'block';
+            }
+        }
+
+        function toggleCart() {
+            const overlay = document.getElementById('cartOverlay');
+            const sidebar = document.getElementById('cartSidebar');
+            const isOpen = sidebar.classList.contains('open');
+            if (isOpen) {
+                overlay.classList.remove('open');
+                sidebar.classList.remove('open');
+                document.body.style.overflow = '';
+            } else {
+                overlay.classList.add('open');
+                sidebar.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function checkout() {
+            if (!isLoggedIn) {
+                toggleCart();
+                showToast('⚠️ Please login first to place an order.', 'error');
+                setTimeout(() => openModal('login-modal'), 500);
+                return;
+            }
+            if (cart.length === 0) {
+                showToast('⚠️ Your cart is empty!', 'error');
+                return;
+            }
+            const total = cart.reduce((sum, c) => sum + c.price * c.qty, 0);
+            document.getElementById('paymentTotal').textContent = '₹' + total;
+            toggleCart();
+            setTimeout(() => openModal('payment-modal'), 400);
+        }
+
+        function selectPayment(el) {
+            document.querySelectorAll('.payment-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+        }
+
+        function processPayment() {
+            closeModal('payment-modal');
+            cart = [];
+            updateCartUI();
+            trackingStep = 0;
+            updateTrackingUI();
+            showToast('🎉 Order placed successfully! Track your order below.', 'success');
+            scrollToSection('tracking-section');
+            // Auto-simulate tracking
+            simulateTracking();
+        }
+
+        // ─── TRACKING ───────────────────────────
+        function updateTrackingUI() {
+            const steps = document.querySelectorAll('#trackingSteps .track-step');
+            const progress = document.getElementById('trackingProgress');
+            const status = document.getElementById('trackingStatus');
+            const statusMessages = [
+                'Order has been placed! Waiting for chef confirmation.',
+                'Chef is preparing your delicious meal...',
+                'Order packed & ready for pickup!',
+                'Rider is on the way to your location! 🛵',
+                'Delivered! Enjoy your meal! 😋'
+            ];
+
+            steps.forEach((step, i) => {
+                step.classList.toggle('active', i <= trackingStep);
+            });
+            const progressPercent = trackingStep >= 0 ? (trackingStep / (steps.length - 1)) * 100 : 0;
+            progress.style.width = progressPercent + '%';
+
+            if (trackingStep >= 0 && trackingStep < statusMessages.length) {
+                status.textContent = statusMessages[trackingStep];
+            } else if (trackingStep < 0) {
+                status.textContent = 'No active order. Place an order to start tracking!';
+            }
+        }
+
+        function simulateTracking() {
+            if (trackingInterval) clearInterval(trackingInterval);
+            trackingStep = 0;
+            updateTrackingUI();
+            trackingInterval = setInterval(() => {
+                if (trackingStep < 4) {
+                    trackingStep++;
+                    updateTrackingUI();
+                } else {
+                    clearInterval(trackingInterval);
+                    trackingInterval = null;
+                }
+            }, 1800);
+        }
+
+        function resetTracking() {
+            if (trackingInterval) clearInterval(trackingInterval);
+            trackingInterval = null;
+            trackingStep = -1;
+            updateTrackingUI();
+        }
+
+        // ─── CHEF GRID ──────────────────────────
+        function renderChefGrid() {
+            const grid = document.getElementById('chefGrid');
+            grid.innerHTML = chefs.map(c => `
+            <div class="chef-card">
+              <div class="chef-avatar">${c.emoji}</div>
+              <h3>${c.name}</h3>
+              <p class="chef-expertise">${c.expertise}</p>
+              <p class="chef-stars">${'⭐'.repeat(Math.floor(c.rating))} ${c.rating}</p>
+              <p class="chef-location">📍 ${c.location} · ${c.dishes}+ dishes</p>
+              <div class="chef-media-upload">
+                <label title="Upload Audio of dish">🎵 Audio<input type="file" accept="audio/*" onchange="handleChefUpload(this, 'audio', '${c.name}')"></label>
+                <label title="Upload Video of dish">🎬 Video<input type="file" accept="video/*" onchange="handleChefUpload(this, 'video', '${c.name}')"></label>
+              </div>
+            </div>
+          `).join('');
+        }
+
+        function handleChefUpload(input, type, chefName) {
+            if (input.files.length > 0) {
+                const fileName = input.files[0].name;
+                showToast(`📁 ${type === 'audio' ? 'Audio' : 'Video'} "${fileName}" uploaded for ${chefName}!`, 'info');
+            }
+        }
+
+        // ─── TOAST ──────────────────────────────
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            container.appendChild(toast);
+            setTimeout(() => {
+                if (toast.parentNode) toast.remove();
+            }, 3100);
+        }
+
+        // ─── NAV SCROLL EFFECT ──────────────────
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 30) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ─── KEYBOARD SHORTCUTS ─────────────────
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-overlay.open').forEach(m => m.classList.remove('open'));
+                document.body.style.overflow = '';
+                const sidebar = document.getElementById('cartSidebar');
+                if (sidebar.classList.contains('open')) toggleCart();
+            }
+        });
+
+        // ─── CSS ANIMATION INJECTION ────────────
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+          @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // ─── INITIALIZE ─────────────────────────
+        init();
+        console.log('🍽️  Platina - Premium Cloud Kitchen');
+        console.log('👋  Welcome! Explore our menu, meet our chefs, and enjoy gourmet food.');
+        console.log('💡  Tip: Click the sun/moon toggle for dark mode, use the cart for orders!');
+    </script>
+</body>
+</html>
